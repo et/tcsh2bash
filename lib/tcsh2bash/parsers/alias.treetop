@@ -1,0 +1,13 @@
+module Tcsh2Bash
+  grammar Alias
+    include BasicTokens
+
+    rule alias_expression
+      'alias' space assignment {
+        def to_bash
+          'alias ' + assignment.to_bash
+        end
+      }
+    end
+  end
+end

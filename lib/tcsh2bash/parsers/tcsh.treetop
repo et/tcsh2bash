@@ -1,0 +1,11 @@
+module Tcsh2Bash
+  grammar Tcsh
+    include Alias
+    include Setenv
+
+    rule tcsh_statement
+      alias_expression / setenv_expression
+    end
+
+  end
+end

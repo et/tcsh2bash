@@ -1,0 +1,44 @@
+module Tcsh2Bash
+  grammar Symbols
+    rule symbol
+      paren / quote / dollar / tilde / equals / space / white_space
+    end
+
+    rule paren
+      open_paren / close_paren
+    end
+
+    rule open_paren
+      '('
+    end
+
+    rule close_paren
+      ')'
+    end
+
+    rule quote
+      "'" / '"' / '`'
+    end
+
+    rule dollar
+      '$'
+    end
+
+    rule tilde
+      '~'
+    end
+
+    rule equals
+      '='
+    end
+
+    rule space
+      [ \t]*
+    end
+
+    rule whitespace
+      [ \t\n\r\f]*
+    end
+
+  end
+end

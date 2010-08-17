@@ -1,0 +1,36 @@
+module Tcsh2Bash
+  grammar Conditional
+    include Symbols
+    include Alias
+    include Setenv
+
+    rule conditional_expression
+      if_statement / switch_statement
+    end
+
+    rule if_statement
+      if_one_line / if_multi_line
+    end
+
+    rule if_one_line
+      'if' space open_paren bool_exp:(close_paren / .+) command {
+        def to_bash
+          bool_exp.text_value command.to_bash
+        end
+      }
+    end
+
+    rule if_multi_line
+      if_one_line 'then'
+    end
+
+    rule switch_statement
+      'switch'
+    end
+
+    rule command
+      alias_expression / setenv_expression
+    end
+
+  end
+end

@@ -1,0 +1,23 @@
+module Tcsh2Bash
+  grammar BasicTokens
+    include Symbols
+
+    rule basic_token
+      assignment / variable
+    end
+
+    rule assignment
+      variable space value:.+ {
+        def to_bash
+          variable.text_value + '=' + value.text_value
+        end
+      }
+    end
+
+    rule variable
+      [a-zA-Z_] [a-zA-Z_0-9]*
+    end
+
+
+  end
+end
