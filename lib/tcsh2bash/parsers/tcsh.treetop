@@ -1,0 +1,18 @@
+module Tcsh2Bash
+  grammar Tcsh
+    include Assignment
+
+    rule tcsh
+      assignment* / unparseable
+    end
+
+    rule unparseable
+      .* !. {
+        def to_bash
+          'Unable to parse: ' + text_value
+        end
+      }
+    end
+
+  end
+end

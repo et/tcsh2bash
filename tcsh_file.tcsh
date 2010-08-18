@@ -1,0 +1,2 @@
+alias hello goodbye
+blah
