@@ -1,0 +1,42 @@
+module Tcsh2Bash
+  grammar Assignment
+    include Symbols
+
+    rule assignment
+      set_assignment / alias_assignment / setenv_assignment
+    end
+
+    rule set_assignment
+      'set' space+ variable space* '=' space* value {
+        def to_bash
+          variable.text_value + '=' + value.text_value
+        end
+      }
+    end
+
+    rule alias_assignment
+      'alias' space+ variable space+ value {
+        def to_bash
+          'alias ' + variable.text_value + '=' + value.text_value
+        end
+      }
+    end
+
+    rule setenv_assignment
+      'setenv' space+ variable space+ value {
+        def to_bash
+          'export ' + variable.text_value + '=' + value.text_value
+        end
+      }
+    end
+
+    rule variable
+      [a-zA-Z_] value*
+    end
+
+    rule value
+      [\w]+
+    end
+
+  end
+end

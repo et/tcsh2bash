@@ -33,7 +33,7 @@ module Tcsh2Bash
     end
 
     rule space
-      [ \t]*
+      [ \t]
     end
 
     rule whitespace
