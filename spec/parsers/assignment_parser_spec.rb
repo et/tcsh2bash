@@ -9,29 +9,29 @@ module Tcsh2Bash
 
     describe 'set assignment' do
       it 'should parse this' do
-        parse('set foo = bar')
+        parse('set foo = bar').should_not be_nil
       end
 
       it 'should convert it to bash' do
-        convert_to_bash('set foo = bar') == 'foo=bar'
+        convert_to_bash('set foo = bar').should == 'foo=bar'
       end
     end
 
     describe 'alias assignment' do
       it 'should parse this alias' do
-        parse('alias foo bar')
+        parse('alias foo bar').should_not be_nil
       end
       it 'should convert it to bash' do
-        convert_to_bash('alias foo bar') == 'alias foo=bar'
+        convert_to_bash('alias foo bar').should == 'alias foo=bar'
       end
     end
 
     describe 'setenv assignment' do
       it 'should parse this setenv' do
-        parse('setenv foo bar')
+        parse('setenv foo bar').should_not be_nil
       end
       it 'should convert it to bash' do
-        convert_to_bash('setenv foo bar') == 'export foo=bar'
+        convert_to_bash('setenv foo bar').should == 'export foo=bar'
       end
     end
   end

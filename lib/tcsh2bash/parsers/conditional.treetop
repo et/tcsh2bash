@@ -1,25 +1,23 @@
 module Tcsh2Bash
   grammar Conditional
     include Symbols
+    include Assignment
 
-    rule conditional_expression
-      if_statement
-    end
+    #rule conditional_expression
+    #  if_statement
+    #end
 
-    rule if_statement
-      if_one_line
-    end
+    #rule if_statement
+    #  if_one_line
+    #end
 
     rule if_one_line
-      'if' space open_paren bool_expr close_paren statement {
+    # Cannot use close paren here --- not sure why
+      'if' space* open_paren expr:[^)]* close_paren space* stmt:(assignment / anything) {
         def to_bash
-          bool_expr.to_bash statement.to_bash
+          "if [ " + expr.text_value + " ]\nthen\n  " + stmt.to_bash.strip + "\nfi"
         end
       }
-    end
-
-    rule bool_expr
-      'balh'
     end
 
   end

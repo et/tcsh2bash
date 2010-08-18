@@ -41,5 +41,13 @@ module Tcsh2Bash
       !.
     end
 
+    rule anything
+      .* {
+        def to_bash
+          text_value
+        end
+      }
+    end
+
   end
 end
