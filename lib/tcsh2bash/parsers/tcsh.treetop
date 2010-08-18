@@ -1,17 +1,22 @@
 module Tcsh2Bash
   grammar Tcsh
     include Assignment
+    include Conditional
 
     rule tcsh
-      (assignment white*)* {
+      (tcsh_rule white*)* {
         def to_bash
           output = ""
           elements.map do |e|
-            output << e.assignment.to_bash << "\n"
+            output << e.tcsh_rule.to_bash << "\n"
           end
           output
         end
       }
+    end
+
+    rule tcsh_rule
+      assignment / if_one_line
     end
 
     rule unparseable
