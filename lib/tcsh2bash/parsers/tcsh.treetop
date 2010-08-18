@@ -3,7 +3,15 @@ module Tcsh2Bash
     include Assignment
 
     rule tcsh
-      assignment* / unparseable
+      (assignment white*)* {
+        def to_bash
+          output = ""
+          elements.map do |e|
+            output << e.assignment.to_bash << "\n"
+          end
+          output
+        end
+      }
     end
 
     rule unparseable

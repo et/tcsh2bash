@@ -1,27 +1,35 @@
 #!/usr/bin/env ruby
 
-require 'optparse'
 require File.dirname(__FILE__) + '/lib/tcsh2bash'
-require File.dirname(__FILE__) + '/lib/trollop'
 
-opts = Trollop::options do
-  opt :output, "File to output converted bash", :type => String
-end
-
-# Try and read the file
-tcsh_file = ARGV[0]
-unless File.exist?(tcsh_file)
-  puts "Unable to read file: #{tcsh_file}"
+if ARGV.empty?
+  puts "Must provide at least one file argument"
   exit
 end
 
-contents = File.open(tcsh_file, 'r') { |f| f.read }
-contents.strip!
+# Make sure that each is a file
+ARGV.each do |file|
+  unless File.exist?(file)
+    puts "Unable to read file: #{file}"
+    exit
+  end
+end
 
-@parser = Tcsh2Bash::TcshParser.new
-contents = 'alias blah foo alias choo loo'
-if @parser.parse(contents)
-  puts @parser.parse(contents).to_bash
-else
-  puts "Problem parsing file"
+
+# Open all the files and parse them
+ARGV.each do |file|
+  contents = File.open(file, 'r') { |f| f.read }
+
+  # Do some pre parsing to make this input suitable
+  @pre_parser = Tcsh2Bash::PreParser.new
+  contents = @pre_parser.parse(contents)
+
+  # Now try and parse it for real
+  @parser = Tcsh2Bash::TcshParser.new
+  if @parser.parse(contents)
+    puts @parser.parse(contents).to_bash
+    #p @parser.parse(contents)
+  else
+    puts "Problem parsing file"
+  end
 end

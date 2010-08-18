@@ -1,2 +1,3 @@
 alias hello goodbye
-blah
+setenv editor vim
+set p=d

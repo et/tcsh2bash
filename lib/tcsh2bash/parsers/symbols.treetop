@@ -1,8 +1,5 @@
 module Tcsh2Bash
   grammar Symbols
-    rule symbol
-      paren / quote / dollar / tilde / equals / space / white_space
-    end
 
     rule paren
       open_paren / close_paren
@@ -36,8 +33,12 @@ module Tcsh2Bash
       [ \t]
     end
 
-    rule whitespace
-      [ \t\n\r\f]*
+    rule white
+      [ \t\n\r\f]
+    end
+
+    rule eof
+      !.
     end
 
   end
