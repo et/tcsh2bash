@@ -1,0 +1,56 @@
+module Tcsh2Bash
+  grammar Operators
+
+    rule operator
+      eq / neq / lte / gte / lt / gt
+    end
+
+    rule eq
+      '==' {
+        def to_bash
+          '-eq'
+        end
+      }
+    end
+
+    rule neq
+      '!=' {
+        def to_bash
+          '-neq'
+        end
+      }
+    end
+
+    rule lt
+      '<' {
+        def to_bash
+          '-lt'
+        end
+      }
+    end
+
+    rule lte
+      '<=' {
+        def to_bash
+          '-le'
+        end
+      }
+    end
+
+    rule gt
+      '>' {
+        def to_bash
+          '-gt'
+        end
+      }
+    end
+
+    rule gte
+      '>=' {
+        def to_bash
+          '-ge'
+        end
+      }
+    end
+  end
+end
