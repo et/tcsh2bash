@@ -12,10 +12,9 @@ module Tcsh2Bash
     #end
 
     rule if_one_line
-    # Cannot use close paren here --- not sure why
-      'if' space* open_paren expr:[^)]* close_paren space* stmt:(assignment / anything) {
+      'if' space* open_paren bool_expr close_paren space* stmt:(assignment / anything) {
         def to_bash
-          "if [ " + expr.text_value + " ]\nthen\n  " + stmt.to_bash.strip + "\nfi"
+          "if [ " + bool_expr.text_value + " ]\nthen\n  " + stmt.to_bash.strip + "\nfi"
         end
       }
     end

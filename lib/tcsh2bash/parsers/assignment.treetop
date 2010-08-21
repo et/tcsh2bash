@@ -30,13 +30,5 @@ module Tcsh2Bash
       }
     end
 
-    rule variable
-      [a-zA-Z_] value*
-    end
-
-    rule value
-      [\w]+
-    end
-
   end
 end

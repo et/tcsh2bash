@@ -1,6 +1,22 @@
 module Tcsh2Bash
   grammar Symbols
 
+    rule string
+      '"' (!'"' . / '\"')* '"'
+    end
+
+    rule variable_ref
+      dollar variable
+    end
+
+    rule variable
+      [a-zA-Z_] value*
+    end
+
+    rule value
+      [\w]+
+    end
+
     rule paren
       open_paren / close_paren
     end
@@ -21,13 +37,11 @@ module Tcsh2Bash
       '$'
     end
 
-    rule tilde
-      '~'
+    rule number
+      [0-9] [0-9]*
     end
 
-    rule equals
-      '='
-    end
+    
 
     rule space
       [ \t]
