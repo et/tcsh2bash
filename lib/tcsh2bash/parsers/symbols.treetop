@@ -1,6 +1,8 @@
 module Tcsh2Bash
   grammar Symbols
 
+    # @todo - this works for double quoted strings,
+    #         should be able to use this with single quoted strings
     rule string
       '"' (!'"' . / '\"')* '"'
     end
@@ -17,16 +19,20 @@ module Tcsh2Bash
       [\w]+
     end
 
-    rule paren
-      open_paren / close_paren
-    end
-
     rule open_paren
-      '('
+      '(' {
+        def to_bash
+          '['
+        end
+      }
     end
 
     rule close_paren
-      ')'
+      ')' {
+        def to_bash
+          ']'
+        end
+      }
     end
 
     rule quote
