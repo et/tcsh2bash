@@ -3,24 +3,12 @@ module Tcsh2Bash
     include Symbols
     include Operators
 
+    # @todo - Rule for flag matching (-r some_file.txt)
+    #       - AND and OR
+
     rule paren_bool_expr
-      open_paren space* paren_bool_expr space* close_paren {
-        def to_bash
-          open_paren.to_bash + ' ' + paren_bool_expr.to_bash + ' ' + close_paren.to_bash
-        end
-      }
-      /
-      bool_expr
+      open_paren space* paren_bool_expr space* close_paren <ParenBoolExpr> / bool_expr
     end
-
-    #rule bool_expr
-    #  comparison space* (and_or space* comparison)*
-    #end
-
-    ## @todo - Add rule for flag matching (-r some_file.txt)
-    #rule comparison
-    #  negation? string_comparison / numeric_comparison
-    #end
 
     rule bool_expr
       string_comparison / numeric_comparison
@@ -28,19 +16,11 @@ module Tcsh2Bash
 
     # @todo - Add rule for string regex match (=~ and !~)
     rule string_comparison
-      first:(variable_ref / string) space+ string_oper:('==' / '!=') space+ second:(variable_ref / string) {
-        def to_bash
-          first.text_value + ' ' + string_oper.text_value + ' ' + second.text_value
-        end
-      }
+      first:(variable_ref / string) space+ string_oper:('==' / '!=') space+ second:(variable_ref / string) <StringComparison>
     end
 
     rule numeric_comparison
-      first:(variable_ref / number) space* operator space* second:(variable_ref / number) {
-        def to_bash
-          first.text_value + ' ' + operator.to_bash + ' ' + second.text_value
-        end
-      }
+      first:(variable_ref / number) space* operator space* second:(variable_ref / number) <NumericComparison>
     end
 
     rule and_or

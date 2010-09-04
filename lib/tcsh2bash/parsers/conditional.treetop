@@ -13,9 +13,9 @@ module Tcsh2Bash
     #end
 
     rule if_one_line
-      'if' space* open_paren bool_expr close_paren space* stmt:(assignment / anything) {
+      'if' space* open_paren paren_bool_expr close_paren space* stmt:(assignment / anything) {
         def to_bash
-          "if [ " + bool_expr.to_bash + " ]\nthen\n  " + stmt.to_bash.strip + "\nfi"
+          "if " + paren_bool_expr.to_bash + "\nthen\n  " + stmt.to_bash + "\nfi"
         end
       }
     end

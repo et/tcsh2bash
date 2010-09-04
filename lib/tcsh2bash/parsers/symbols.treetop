@@ -20,19 +20,11 @@ module Tcsh2Bash
     end
 
     rule open_paren
-      '(' {
-        def to_bash
-          '['
-        end
-      }
+      '('
     end
 
     rule close_paren
-      ')' {
-        def to_bash
-          ']'
-        end
-      }
+      ')'
     end
 
     rule quote

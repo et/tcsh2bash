@@ -7,15 +7,11 @@ module Tcsh2Bash
     end
 
     describe 'one line' do
-      it 'should parse this' do
-        parse('set foo=bar').should_not be_nil
-      end
+      specify { parse('set foo=bar').should_not be_nil }
     end
 
     describe 'two lines' do
-      it 'should parse this' do
-        parse("set foo=bar\nalias hello world").should_not be_nil
-      end
+      specify { parse("set foo=bar\nalias hello world").should_not be_nil }
     end
 
     describe 'bad line' do
