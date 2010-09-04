@@ -1,0 +1,51 @@
+#!/usr/bin/env ruby
+# Tcsh2Bash executable
+#
+# Author: et
+
+require 'trollop'
+require File.dirname(__FILE__) + './lib/tcsh2bash'
+
+opts = Trollop::options do
+  version "Tcsh2Bash v0.01 2010 Eric Thomas"
+  banner <<-USAGE
+Tcsh2Bash
+
+Usage:
+  tcsh2bash [options]
+where [options] are:
+USAGE
+
+  opt :infile, "tcsh filename to parse", :type => String, :required => true
+  opt :outfile, "Outputs converted tcsh to bash data. Defaults to standard out.", :type => String
+end
+
+Trollop::die :infile, "must exist" unless File.exist?(opts[:infile]) if opts[:infile]
+Trollop::die :outfile, "must not exist" if File.exist?(opts[:outfile]) if opts[:outfile]
+
+
+contents = File.open(opts[:infile], 'r') { |f| f.read }
+
+# Do some pre parsing to make this input suitable
+@pre_parser = Tcsh2Bash::PreParser.new
+contents = @pre_parser.parse(contents)
+
+# Now try and parse it for real
+@parser = Tcsh2Bash::TcshParser.new
+if @parser.parse(contents)
+
+  output = @parser.parse(contents).to_bash
+
+  # Write to file
+  if opts[:outfile]
+    File.open(opts[:outfile], 'w') do |f|
+      f.write(output)
+    end
+
+  # Write to standard out
+  else
+    puts output
+  end
+else
+  puts "Problem parsing file"
+end
