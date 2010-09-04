@@ -7,14 +7,7 @@ module Tcsh2Bash
     # Parse the first line, then handle the rest of the
     # lines with the rest_of_lines label.
     rule lines
-      line rest_of_lines:(newline line)* {
-        def to_bash
-          output = ""
-          output << line.to_bash << "\n"
-          rest_of_lines.elements.each { |e| output << e.line.to_bash << "\n"}
-          output
-        end
-      }
+      line rest_of_lines:(newline line)* <Lines>
     end
 
     rule line
@@ -26,13 +19,7 @@ module Tcsh2Bash
     end
 
     rule unparseable_line
-      [^\n]* {
-        def to_bash
-          "#######################\n" <<
-          "# Unable to parse: " << text_value << "\n" <<
-          "#######################"
-        end
-      }
+      [^\n]* <UnparseableLine>
     end
 
   end
