@@ -7,27 +7,15 @@ module Tcsh2Bash
     end
 
     rule set_assignment
-      'set' space+ variable space* '=' space* value {
-        def to_bash
-          variable.text_value + '=' + value.text_value
-        end
-      }
+      'set' space+ variable space* '=' space* value <SetAssignment>
     end
 
     rule alias_assignment
-      'alias' space+ variable space+ value {
-        def to_bash
-          'alias ' + variable.text_value + '=' + value.text_value
-        end
-      }
+      'alias' space+ variable space+ value <AliasAssignment>
     end
 
     rule setenv_assignment
-      'setenv' space+ variable space+ value {
-        def to_bash
-          'export ' + variable.text_value + '=' + value.text_value
-        end
-      }
+      'setenv' space+ variable space+ value <SetenvAssignment>
     end
 
   end

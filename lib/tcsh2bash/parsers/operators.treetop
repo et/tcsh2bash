@@ -6,51 +6,27 @@ module Tcsh2Bash
     end
 
     rule eq
-      '==' {
-        def to_bash
-          '-eq'
-        end
-      }
+      '==' <Eq>
     end
 
     rule neq
-      '!=' {
-        def to_bash
-          '-neq'
-        end
-      }
+      '!=' <Neq>
     end
 
     rule lt
-      '<' {
-        def to_bash
-          '-lt'
-        end
-      }
+      '<' <Lt>
     end
 
     rule lte
-      '<=' {
-        def to_bash
-          '-le'
-        end
-      }
+      '<=' <Lte>
     end
 
     rule gt
-      '>' {
-        def to_bash
-          '-gt'
-        end
-      }
+      '>' <Gt>
     end
 
     rule gte
-      '>=' {
-        def to_bash
-          '-ge'
-        end
-      }
+      '>=' <Gte>
     end
   end
 end
