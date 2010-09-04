@@ -1,0 +1,27 @@
+Please note that this application is a development stage.
+I'm just adding this README, so github will stop complaining to me.
+
+
+h1. Tcsh2Bash
+
+This application will read in a tcsh script and try to output the bash equivalent.
+
+h2. Requirements
+
+Ruby "1.9.2":http://www.ruby-lang.org/en/downloads/ (an older version may work, not sure)
+"RubyGems":http://rubygems.org/pages/download
+
+I recommend installing both with "rvm":http://rvm.beginrescueend.com/rvm/install/
+
+Additionally, you will need the following gems
+treetop 1.4.8
+trollop 1.16.2
+
+h2. Usage
+
+Inside the bin directory is an executable called "tcsh2bash".
+
+Run it as follows
+
+* Output to standard out: @./tcsh2bash --infile cshrc@
+* Output to a file: @./tcsh2bash --infile cshrc --outfile bashrc@
