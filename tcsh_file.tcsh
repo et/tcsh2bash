@@ -1,4 +1,5 @@
 alias hello goodbye
 setenv editor vim
 set p=d
-if (a=b) echo "Hello world!"
+q243aca 0w3
+23489ay7c 214ad

@@ -47,7 +47,10 @@ module Tcsh2Bash
       [0-9] [0-9]*
     end
 
-    
+
+    rule newline
+      [\n]
+    end
 
     rule space
       [ \t]

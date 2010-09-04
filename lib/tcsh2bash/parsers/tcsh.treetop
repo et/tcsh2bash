@@ -3,26 +3,34 @@ module Tcsh2Bash
     include Assignment
     include Conditional
 
-    rule tcsh
-      (tcsh_rule white*)* {
+    # Handle multiple lines
+    # Parse the first line, then handle the rest of the
+    # lines with the rest_of_lines label.
+    rule lines
+      line rest_of_lines:(newline line)* {
         def to_bash
           output = ""
-          elements.map do |e|
-            output << e.tcsh_rule.to_bash << "\n"
-          end
+          output << line.to_bash << "\n"
+          rest_of_lines.elements.each { |e| output << e.line.to_bash << "\n"}
           output
         end
       }
     end
 
-    rule tcsh_rule
+    rule line
+      tcsh_line / unparseable_line
+    end
+
+    rule tcsh_line
       assignment / if_one_line
     end
 
-    rule unparseable
-      .* !. {
+    rule unparseable_line
+      [^\n]* {
         def to_bash
-          'Unable to parse: ' + text_value
+          "#######################\n" <<
+          "# Unable to parse: " << text_value << "\n" <<
+          "#######################"
         end
       }
     end
