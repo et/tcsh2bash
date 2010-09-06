@@ -26,8 +26,8 @@ IF_ONE_LINE
       end
     end
 
-    describe "multi line if statement" do
-      it "should convert a multiline statement to bash" do
+    describe "multi-line if statement" do
+      it "should convert a multi-line statement to bash" do
 
       input = <<INPUT.strip
 if ($foo == 'foo') then
@@ -42,6 +42,26 @@ then
 fi
 OUTPUT
         convert_to_bash(input).should == output
+      end
+
+      it "should convert a multi-line statement with multiple statements" do
+
+input = <<INPUT.strip
+if ($foo == 'foo') then
+  echo 'Hello world!'
+  echo "Goodbye world!"
+endif
+INPUT
+
+output = <<OUTPUT.strip
+if [ $foo == 'foo' ]
+then
+  echo 'Hello world!'
+  echo "Goodbye world!"
+fi
+OUTPUT
+        convert_to_bash(input).should == output
+
       end
     end
   end

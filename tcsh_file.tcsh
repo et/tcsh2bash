@@ -1,5 +1,7 @@
 alias hello goodbye
-setenv editor vim
+setenv EDITOR vim
 set p=d
 q243aca 0w3
-23489ay7c 214ad
+if ($EDITOR == "vim") then
+  echo 'Good choice'
+endif

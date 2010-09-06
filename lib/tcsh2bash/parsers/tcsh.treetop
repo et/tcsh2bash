@@ -15,7 +15,7 @@ module Tcsh2Bash
     end
 
     rule tcsh_line
-      assignment / if_one_line
+      assignment / if_statement
     end
 
     rule unparseable_line

@@ -4,20 +4,12 @@ module Tcsh2Bash
     include Boolean
     include Assignment
 
-    #rule conditional_expression
-    #  if_statement
-    #end
-
-    #rule if_statement
-    #  if_one_line
-    #end
-
     rule if_statement
       if_multi_line / if_one_line
     end
 
     rule if_multi_line
-      if_opening 'then' newline commands newline 'endif' <IfMultiLine>
+      if_opening 'then' newline commands .*  <IfMultiLine>
     end
 
     rule if_one_line
@@ -29,7 +21,7 @@ module Tcsh2Bash
     end
 
     rule commands
-      command (newline command)*
+      command rest_of_commands:(newline addl:(!"endif" command))* <Commands>
     end
 
     rule command
@@ -37,11 +29,11 @@ module Tcsh2Bash
     end
 
     rule any_command
-      (!(newline / eof) .)* {
-        def to_bash
-          text_value
-        end
-      }
+      (!end_any_command .)+ <AnyCommand>
+    end
+
+    rule end_any_command
+      newline / eof
     end
 
   end
