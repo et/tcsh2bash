@@ -9,7 +9,7 @@ module Tcsh2Bash
     end
 
     rule if_multi_line
-      if_opening 'then' newline commands .*  <IfMultiLine>
+      if_opening 'then' newline commands newline "endif" <IfMultiLine>
     end
 
     rule if_one_line
