@@ -12,7 +12,7 @@ module Tcsh2Bash
 
     private
       def remove_extra_chars(input)
-        input.strip.gsub("\r", "").squeeze("\n").gsub(/\n\s*/, "\n").gsub(/\s*\n/, "\n")
+        input.strip.gsub("\r", "").squeeze("\n")
       end
   end
 end
