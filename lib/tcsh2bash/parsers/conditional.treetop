@@ -12,10 +12,34 @@ module Tcsh2Bash
     #  if_one_line
     #end
 
+    rule if_statement
+      if_multi_line / if_one_line
+    end
+
+    rule if_multi_line
+      if_opening 'then' newline commands newline 'endif' <IfMultiLine>
+    end
+
     rule if_one_line
-      'if' space* open_paren paren_bool_expr close_paren space* stmt:(assignment / anything) {
+      if_opening command <IfOneLine>
+    end
+
+    rule if_opening
+      'if' space* paren_bool_expr space* <IfOpening>
+    end
+
+    rule commands
+      command (newline command)*
+    end
+
+    rule command
+      assignment / any_command
+    end
+
+    rule any_command
+      (!(newline / eof) .)* {
         def to_bash
-          "if " + paren_bool_expr.to_bash + "\nthen\n  " + stmt.to_bash + "\nfi"
+          text_value
         end
       }
     end

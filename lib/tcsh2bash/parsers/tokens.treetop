@@ -1,0 +1,44 @@
+module Tcsh2Bash
+  grammar Tokens
+
+    rule single_quote
+      "'"
+    end
+
+    rule double_quote
+      "\""
+    end
+
+    rule backtick
+      "`"
+    end
+
+    rule open_paren
+      "("
+    end
+
+    rule close_paren
+      ")"
+    end
+
+    rule dollar
+      "$"
+    end
+
+    rule number
+      [0-9] [0-9]*
+    end
+
+    rule newline
+      "\n"
+    end
+
+    rule space
+      [ \t]
+    end
+
+    rule eof
+      !.
+    end
+  end
+end

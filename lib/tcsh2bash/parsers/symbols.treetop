@@ -1,10 +1,21 @@
 module Tcsh2Bash
   grammar Symbols
+    include Tokens
 
-    # @todo - this works for double quoted strings,
-    #         should be able to use this with single quoted strings
     rule string
-      '"' (!'"' . / '\"')* '"'
+      single_quoted_string / double_quoted_string
+    end
+
+    rule double_quoted_string
+      '"' [^"]* '"'
+    end
+
+    rule single_quoted_string
+      "'" [^']* "'"
+    end
+
+    rule backtick_string
+      backtick string backtick
     end
 
     rule variable_ref
@@ -19,49 +30,8 @@ module Tcsh2Bash
       [\w]+
     end
 
-    rule open_paren
-      '('
-    end
-
-    rule close_paren
-      ')'
-    end
-
-    rule quote
-      "'" / '"' / '`'
-    end
-
-    rule dollar
-      '$'
-    end
-
-    rule number
-      [0-9] [0-9]*
-    end
-
-
-    rule newline
-      [\n]
-    end
-
-    rule space
-      [ \t]
-    end
-
     rule white
       [ \t\n\r\f]
-    end
-
-    rule eof
-      !.
-    end
-
-    rule anything
-      .* {
-        def to_bash
-          text_value
-        end
-      }
     end
 
   end

@@ -1,5 +1,6 @@
 require 'treetop'
 
+require File.dirname(__FILE__) + '/parsers/tokens'
 require File.dirname(__FILE__) + '/parsers/symbols'
 require File.dirname(__FILE__) + '/parsers/operators'
 require File.dirname(__FILE__) + '/parsers/boolean'

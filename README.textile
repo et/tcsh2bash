@@ -1,4 +1,4 @@
-Please note that this application is a development stage.
+Please note that this application is in a development stage.
 I'm just adding this README, so github will stop complaining to me.
 
 
@@ -6,9 +6,18 @@ h1. Tcsh2Bash
 
 This application will read in a tcsh script and try to output the bash equivalent.
 
+h2. Motivation
+
+Tcsh, an improvement on the C shell, is generally chosen as a default shell for many environments
+because of how it mimics the C language. However, there are many ambiguities and limitations
+with the language. Additionally, documentation on the language is sparse compared to bash.
+
+This application is developed for people trying to migrate from tcsh to bash such as converting
+a cshrc to bashrc or for people who want to support bash on a tcsh driven system.
+
 h2. Requirements
 
-Ruby "1.9.2":http://www.ruby-lang.org/en/downloads/ (an older version may work, not sure)
+Ruby "1.9.2":http://www.ruby-lang.org/en/downloads/ (older versions probably work, this is just the one I use)
 "RubyGems":http://rubygems.org/pages/download
 
 I recommend installing both with "rvm":http://rvm.beginrescueend.com/rvm/install/
@@ -25,3 +34,28 @@ Run it as follows
 
 * Output to standard out: @./tcsh2bash --infile cshrc@
 * Output to a file: @./tcsh2bash --infile cshrc --outfile bashrc@
+
+h3. Sample
+
+Input
+
+pre. alias hello goodbye
+setenv editor vim
+set p=d
+q243aca 0w3
+
+Output
+
+pre. alias hello=goodbye
+export editor=vim
+p=d
+#######################
+# Unable to parse: q243aca 0w3
+#######################
+
+h2. Additional Notes
+
+There are no guarantees that the bash output produces the same logic as the tcsh script so please
+review the changes especially if using this in a production environment.
+Also, this application is not a mind reader. If you feed it a malformed tcsh script,
+it doesn't make any "logical" guess at what you meant.
