@@ -1,15 +1,14 @@
 module Tcsh2Bash
   grammar Conditional
-    include Symbols
+    include Commands
     include Boolean
-    include Assignment
 
     rule if_statement
       if_multi_line / if_one_line
     end
 
     rule if_multi_line
-      if_opening 'then' newline commands newline "endif" <IfMultiLine>
+      if_opening 'then' newline multiple_commands newline "endif" <IfMultiLine>
     end
 
     rule if_one_line
@@ -19,22 +18,5 @@ module Tcsh2Bash
     rule if_opening
       'if' space* paren_bool_expr space* <IfOpening>
     end
-
-    rule commands
-      command rest_of_commands:(newline addl:(!"endif" command))* <Commands>
-    end
-
-    rule command
-      assignment / any_command
-    end
-
-    rule any_command
-      (!end_any_command .)+ <AnyCommand>
-    end
-
-    rule end_any_command
-      newline / eof
-    end
-
   end
 end
