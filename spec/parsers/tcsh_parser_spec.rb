@@ -15,8 +15,8 @@ module Tcsh2Bash
     end
 
     describe 'bad line' do
-      it 'it should parse this, but provide an error message' do
-        output = <<EOF
+      it 'should parse this, but provide an error message' do
+        output = <<EOF.strip
 foo=bar
 #######################
 # Unable to parse: FOO BAR
@@ -24,6 +24,10 @@ foo=bar
 EOF
         convert_to_bash("set foo=bar\nFOO BAR").should == output
       end
+    end
+
+    describe 'comment' do
+      specify { parse("# some comment").should_not be_nil }
     end
 
   end

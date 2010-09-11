@@ -30,6 +30,14 @@ module Tcsh2Bash
       [\w]+
     end
 
+    rule comment
+      "#" (!eof .)* {
+        def to_bash
+          text_value
+        end
+      }
+    end
+
     rule white
       [ \t\n\r\f]
     end
