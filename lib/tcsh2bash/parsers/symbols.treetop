@@ -31,7 +31,7 @@ module Tcsh2Bash
     end
 
     rule comment
-      "#" (!eof .)* {
+      "#" (!(newline / eof) . )* {
         def to_bash
           text_value
         end
