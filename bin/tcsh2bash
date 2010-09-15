@@ -28,7 +28,7 @@ contents = File.open(opts[:infile], 'r') { |f| f.read }
 
 # Do some pre parsing to make this input suitable
 @pre_parser = Tcsh2Bash::PreParser.new
-contents = @pre_parser.parse(contents)
+contents = @pre_parser.parse(contents, Dir.pwd)
 
 # Now try and parse it for real
 @parser = Tcsh2Bash::TcshParser.new

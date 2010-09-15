@@ -1,0 +1,2 @@
+echo "Bar"
+source ./baz_dir/baz
