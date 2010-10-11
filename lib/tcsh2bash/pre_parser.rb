@@ -1,14 +1,13 @@
 module Tcsh2Bash
   class PreParser
 
-    def self.parse(input)
-      new.parse(input)
+    def self.parse(input, cwd)
+      new.parse(input, cwd)
     end
 
     def parse(input, cwd)
       input = unsource_files(input, cwd)
       input = remove_extra_chars(input)
-      input ? input : nil
     end
 
     private

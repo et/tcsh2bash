@@ -2,6 +2,11 @@ require File.dirname(__FILE__) + "/../spec_helper"
 
 module Tcsh2Bash
   describe PreParser do
+
+    def parse(input)
+      @parser.parse(input, Dir.pwd)
+    end
+
     before :each do
       @parser = PreParser.new
     end
