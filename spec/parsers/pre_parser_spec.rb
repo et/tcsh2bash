@@ -4,7 +4,7 @@ module Tcsh2Bash
   describe PreParser do
 
     def parse(input)
-      @parser.parse(input, Dir.pwd)
+      @parser.parse(input, File.dirname(__FILE__))
     end
 
     before :each do
