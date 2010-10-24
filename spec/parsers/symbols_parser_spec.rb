@@ -19,14 +19,14 @@ module Tcsh2Bash
       describe 'mixed quoted string' do
         it 'should parse single quotes on the outside' do
 
-output = <<MIXED
+output = <<MIXED.strip
 'Hello "World"'
 MIXED
           parse(output).should_not be_nil
         end
 
         it 'should parse double quotes on the outside' do
-output = <<MIXED
+output = <<MIXED.strip
 "Hello 'World'"
 MIXED
           parse(output).should_not be_nil

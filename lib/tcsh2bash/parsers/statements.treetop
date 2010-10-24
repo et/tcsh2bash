@@ -7,6 +7,10 @@ module Tcsh2Bash
       assignment_statement / if_statement / undefined_statement
     end
 
+    rule multi_line_statement
+      statement rest_of_statements:(newline statement)* <MultiLineStatement>
+    end
+
     rule undefined_statement
       (!end_undefined_statement .)+ <UndefinedStatement>
     end

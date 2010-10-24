@@ -7,7 +7,7 @@ module Tcsh2Bash
 
   class IfMultiLine < Treetop::Runtime::SyntaxNode
     def to_bash
-      if_opening.to_bash + "\nthen\n" + statement.to_bash + "\nfi"
+      if_opening.to_bash + "\nthen\n" + multi_line_statement.to_bash + "\nfi"
     end
   end
 
