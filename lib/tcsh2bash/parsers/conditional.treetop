@@ -11,7 +11,7 @@ module Tcsh2Bash
     end
 
     rule if_multi_line
-      if_opening 'then' newline multi_line_statement newline "endif" <IfMultiLine>
+      if_opening 'then' newline statements newline "endif" <IfMultiLine>
     end
 
     rule if_one_line

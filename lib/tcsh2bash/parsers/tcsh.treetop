@@ -1,20 +1,17 @@
 module Tcsh2Bash
   grammar Tcsh
-    include Statements
+    include Assignment
+    include Conditional
 
     # Handle multiple lines
     # Parse the first line, then handle the rest of the
     # lines with the rest_of_lines label.
-    rule lines
-      line rest_of_lines:(newline line)* <Lines>
+    rule statements
+      statement rest_of_statements:(newline statement)* <Statements>
     end
 
-    rule line
-      tcsh_line / unparseable_line
-    end
-
-    rule tcsh_line
-      statement / comment
+    rule statement
+      assignment_statement / if_statement / comment / unparseable_line
     end
 
     rule unparseable_line

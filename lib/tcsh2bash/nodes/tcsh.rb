@@ -1,10 +1,10 @@
 module Tcsh2Bash
-  class Lines < Treetop::Runtime::SyntaxNode
+  class Statements < Treetop::Runtime::SyntaxNode
     def to_bash
       output = ""
-      output << line.to_bash
-      rest_of_lines.elements.map do |e|
-        output << e.newline.text_value << e.line.to_bash
+      output << statement.to_bash
+      rest_of_statements.elements.map do |e|
+        output << e.newline.text_value << e.statement.to_bash
       end
       output
     end
