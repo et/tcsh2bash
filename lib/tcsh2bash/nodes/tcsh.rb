@@ -12,9 +12,7 @@ module Tcsh2Bash
 
   class UnparseableLine < Treetop::Runtime::SyntaxNode
     def to_bash
-      "#######################\n" <<
-      "# Unable to parse: " << text_value << "\n" <<
-      "#######################"
+      text_value
     end
   end
 end
