@@ -1,7 +1,6 @@
 module Tcsh2Bash
   grammar Tcsh
-    include Assignment
-    include Conditional
+    include Statements
 
     # Handle multiple lines
     # Parse the first line, then handle the rest of the
@@ -15,7 +14,7 @@ module Tcsh2Bash
     end
 
     rule tcsh_line
-      assignment / if_statement / comment
+      statement / comment
     end
 
     rule unparseable_line

@@ -1,13 +1,13 @@
 module Tcsh2Bash
   class IfOneLine < Treetop::Runtime::SyntaxNode
     def to_bash
-      if_opening.to_bash + " ; then " + command.to_bash + " ; fi"
+      if_opening.to_bash + " ; then " + statement.to_bash + " ; fi"
     end
   end
 
   class IfMultiLine < Treetop::Runtime::SyntaxNode
     def to_bash
-      if_opening.to_bash + "\nthen\n" + multiple_commands.to_bash + "\nfi"
+      if_opening.to_bash + "\nthen\n" + statement.to_bash + "\nfi"
     end
   end
 

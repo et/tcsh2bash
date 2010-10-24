@@ -1,0 +1,18 @@
+module Tcsh2Bash
+  grammar Statements
+    include Assignment
+    include Conditional
+
+    rule statement
+      assignment_statement / if_statement / undefined_statement
+    end
+
+    rule undefined_statement
+      (!end_undefined_statement .)+ <UndefinedStatement>
+    end
+
+    rule end_undefined_statement
+      newline / eof
+    end
+  end
+end

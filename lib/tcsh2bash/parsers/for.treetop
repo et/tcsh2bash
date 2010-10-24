@@ -1,9 +1,0 @@
-module Tcsh2Bash
-  grammar For
-  include Symbols
-
-    rule foreach
-      "foreach" space+ variable space* open_paren collection:(!close_paren .) close_paren newline commands newline "end" <Foreach>
-    end
-  end
-end

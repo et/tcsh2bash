@@ -1,18 +1,21 @@
 module Tcsh2Bash
   grammar Conditional
-    include Commands
     include Boolean
+
+    rule statement
+      if_statement / super
+    end
 
     rule if_statement
       if_multi_line / if_one_line
     end
 
     rule if_multi_line
-      if_opening 'then' newline multiple_commands newline "endif" <IfMultiLine>
+      if_opening 'then' newline statement+ newline "endif" <IfMultiLine>
     end
 
     rule if_one_line
-      if_opening command <IfOneLine>
+      if_opening statement <IfOneLine>
     end
 
     rule if_opening

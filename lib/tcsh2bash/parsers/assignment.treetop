@@ -2,7 +2,11 @@ module Tcsh2Bash
   grammar Assignment
     include Symbols
 
-    rule assignment
+    rule statement
+      assignment_statement / super
+    end
+
+    rule assignment_statement
       set_assignment / alias_assignment / setenv_assignment
     end
 

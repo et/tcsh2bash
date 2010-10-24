@@ -3,7 +3,7 @@ require 'spec_helper'
 module Tcsh2Bash
   describe ConditionalParser do
     before :each do
-      @parser = ConditionalParser.new
+      @parser = TcshParser.new
     end
 
     describe "one line if statement" do
