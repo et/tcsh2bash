@@ -15,12 +15,10 @@ module Tcsh2Bash
     end
 
     describe 'bad line' do
-      it 'should parse this, but provide an error message' do
+      it 'should parse reluctantly parse this. We cannot tell if this really is a bad statement.' do
         output = <<EOF.strip
 foo=bar
-#######################
-# Unable to parse: FOO BAR
-#######################
+FOO BAR
 EOF
         convert_to_bash("set foo=bar\nFOO BAR").should == output
       end
