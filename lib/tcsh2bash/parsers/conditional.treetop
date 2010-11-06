@@ -11,7 +11,11 @@ module Tcsh2Bash
     end
 
     rule if_multi_line
-      if_opening 'then' newline statements newline "endif" <IfMultiLine>
+      if_opening if_block {
+        def to_bash
+          if_opening.to_bash + if_block.to_bash
+        end
+      }
     end
 
     rule if_one_line
@@ -21,5 +25,10 @@ module Tcsh2Bash
     rule if_opening
       'if' space* paren_bool_expr space* <IfOpening>
     end
+
+    rule if_block
+      'then' newline block:(statement newline)+ 'endif' <IfBlock>
+    end
+
   end
 end

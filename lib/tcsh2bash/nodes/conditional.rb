@@ -5,9 +5,14 @@ module Tcsh2Bash
     end
   end
 
-  class IfMultiLine < Treetop::Runtime::SyntaxNode
+  class IfBlock < Treetop::Runtime::SyntaxNode
     def to_bash
-      if_opening.to_bash + "\nthen\n" + statements.to_bash + "\nfi"
+      output = ""
+      output << "\nthen\n"
+      block.elements.map do |line|
+        output << line.statement.to_bash << "\n"
+      end
+      output << "fi"
     end
   end
 
